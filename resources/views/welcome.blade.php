@@ -7,5 +7,7 @@
 </head>
 <body>
     <H1>Smart Follow-Up</H1>
+    <Button><a href="{{ route('getregister') }}">Register</a></Button>
+    <Button><a href="{{ route('getlogin') }}">login</a></Button>
 </body>
 </html>
