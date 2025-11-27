@@ -1,20 +1,21 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\AuthControllerAdv;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\SentumAuthController;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('welcome');
+
+Route::get('/register', [AuthControllerAdv::class, 'registerPage'])->name('getregister');
+Route::get('/login', [AuthControllerAdv::class, 'loginPage'])->name('getlogin');
+
+Route::post('/postRegister', [AuthControllerAdv::class, 'register'])->name('postRegister');
+Route::post('/postLogin', [AuthControllerAdv::class, 'login'])->name('postlogin');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/logout', [AuthControllerAdv::class, 'logout'])->name('logout');
+
 });
-
-Route::get('/register', function () {
-    return view('register');
-})->name('getregister');
-Route::get('/login', function () {
-    return view('login');
-})->name('getlogin');
-
-
-Route::post('/postRegister', [AuthController::class, 'register'])->name('postRegister');
-Route::post('/postLogin', [AuthController::class, 'login'])->name('postlogin');
